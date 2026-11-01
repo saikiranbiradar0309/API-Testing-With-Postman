@@ -1,0 +1,198 @@
+01. What is API?
+
+    - API Stands for Application Programming Interface
+
+    - APIs are mechanisms that enable two software components to communicate with each
+      other using a set of definitions and protocols.
+    
+    - API contains collections of functions and procedures.
+
+
+============================================================
+
+02. How API works?
+    - First we have a client application
+    - Now we make an API request
+    - The API request is made between Client Application and Server
+    - Once the request is received by the server, it will process the request and
+      it will send the API Response back to the client application
+    - It can be the success response or failure response
+
+
+============================================================
+
+03. Types of API?
+    a. Private API
+        - It used to perform the internal operations.
+
+    b. Public API
+        - Exposed to the public, and can be used by anyone, and Sometimes
+          Public APIs are cost associated.
+        - This type of APIs sometimes require authentication and authorization
+
+    c. Partner API
+        - When one business needs to talk to another business, in those cases we
+          use Partner API
+
+    d. Composite API
+        - Combination of 2 APIs
+
+
+============================================================
+
+
+04. What are WebServices?
+    
+    a. SOAP
+        - SOAP Stands for Simple Object Access Protocol
+        - SOAP Works over HTTP
+
+        EXAMPLE:
+
+        - SOAP is nothing but lets say we have 2 servers, one is server1 and another 
+          is server2, Concept remains same like we have to send the request and we have
+          to get the response
+
+        - SO here what kind of request we are sending that matters
+
+        - In SOAP Request what are different parameters we have to consider
+
+          1. The first thing we need is "Endpoint URL"
+             
+             To make a request from one server to another server we need that servers endpoint
+
+             For Example: Lets say i want to achieve login functionality of Amazon, Here
+             Endpoint URL will be : http://www.amazon.com/login
+
+
+
+          2. The second thing we need is "Request"
+             
+             Suppose I want to create an user in Amazon, Here i need to pass some details
+             about that user, And that details we store in "XML Format"
+
+             Always Remember in SOAP, Request is always sent in the form of Content-Type XML
+
+
+
+          3. After Sending the Request we are getting the same "Response" in the form of
+             XML
+
+             Like we get if the user has been created successfully we get "Success"
+             and If the user hasn't been created then we get "Failed"
+
+             (The Failed Response can be Incorrect Username, password etc)
+
+
+------------------------------------------------------------------------
+
+    b. REST
+        - REST is not an protocol, it's an Architecture.
+        - It stands for Representational Stateful APIs
+
+        - In REST also we need to pass Endpoint URL
+
+        - In the Request Body we can pass different types of content:
+          1. XML
+          2. JSON
+          3. String
+          4. Document
+        
+        - We can perform diff type of operations Like CRUD
+          1. CREATE             (POST Request)
+          2. RETRIEVE/READ      (GET Request)
+          3. UPDATE             (PUT Request)
+          4. DELETE             (DELETE Request)
+        
+
+        - We need to pass HEADERS
+            HEADERS means what kind of data we are passing like content-type
+
+
+            SO lets suppose i want to get employee information of XYZ Organization
+            and anyone from outside the Organization cannot able to get the details
+            for that you need to have some credentials like username and password
+            in that case we need to pass credentials in the form of authentication
+            if you're authorized then only you can hit the API
+
+            So these infomation we are passing along with HEADERS in the form of
+            XML/JSON etc.
+        
+
+        - After the Request has been sent and it authenicated we will get some "Response"
+          right?
+
+          The response can be of XML/JSON/String
+        
+
+        - And we get a Response Code like 200,300,400,500 etc
+
+
+============================================================
+
+
+05. SOAP vs REST
+
+    a. SOAP
+        - There is not HEADERS facility in SOAP
+        - Security constraint also there
+        - Response we are getting only in XML format
+
+
+    b. REST
+        - Response we can get in the form of JSON, XML, String etc
+
+
+============================================================
+
+
+06. Why we are creating collections inside Postman?
+    - A Collection is a folder-like container where you store related API requests.
+    
+    - Suppose you are testing an e-commerce application. Your application has several APIs:
+      a. Register an User
+      b. Login
+      c. Get user details
+      d. Add a product
+      e. Get all products
+      f. Add a product to the cart
+      g. Place an order
+      i. Get order details
+    
+    - Instead of keeping these requests separately, you can group them into a collection called 
+      E-Commerce API Testing.
+    
+
+    Why do we create Collections in Postman?
+
+    a. To organize API requests
+        - Imagine your application has 100 APIs.
+        - If you save all 100 requests without organizing them, finding a particular request 
+          becomes difficult.
+        - Instead, you can create collections and folders based on functionality.
+        - Real-time scenario: You are working on a team developing an e-commerce application. 
+          Your teammate asks you to test the payment APIs. You can open the Payment APIs 
+          collection and find the relevant requests quickly.
+    
+
+    b. To execute multiple API requests together
+        - Suppose you want to test the complete user registration and login flow.
+        - You have three requests:
+           1. Register a user.
+           2. Login with that user's credentials.
+           3. 1. Retrieve the user's profile.
+        - You could execute each request manually, one by one.
+        - However, Postman allows you to execute requests in a collection using the 
+          Collection Runner.
+        - Important: Simply placing requests in a collection does not automatically 
+          guarantee that they execute in the correct order or that later requests use 
+          the earlier responses. You must configure the requests and their dependencies 
+          appropriately.
+    
+
+    c. To reuse authentication and configuration
+        - Suppose your application requires a bearer token to access protected APIs.
+        - Without reusable configuration, you might need to configure authentication 
+          separately for many requests.
+        - Collections allow you to configure authentication at the collection level 
+          and let individual requests inherit it.

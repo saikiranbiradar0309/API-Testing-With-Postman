@@ -1,0 +1,180 @@
+{
+  "info": {
+    "_postman_id": "0fa9ef43-13cb-43c1-a638-3b4bfa4728ff",
+    "name": "Booking API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "39508499",
+    "_collection_link": "https://go.postman.co/collection/39508499-0fa9ef43-13cb-43c1-a638-3b4bfa4728ff?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Positive Endpoints",
+      "item": [
+        {
+          "name": "GET Booking Ids",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Booking Details As Per Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/3418",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "3418"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Booking",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"firstname\": \"Sneha\",\n    \"lastname\": \"Karajagi\",\n    \"totalprice\": 874,\n    \"depositpaid\": true,\n    \"bookingdates\": {\n        \"checkin\": \"2016-04-22\",\n        \"checkout\": \"2024-04-08\"\n    },\n    \"additionalneeds\": \"Breakfast and Meals\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Booking",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "token=7d170ed49ad4acd"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"firstname\": \"Sneha\",\n    \"lastname\": \"V Karajagi\",\n    \"totalprice\": 874,\n    \"depositpaid\": true,\n    \"bookingdates\": {\n        \"checkin\": \"2016-04-22\",\n        \"checkout\": \"2024-04-08\"\n    },\n    \"additionalneeds\": \"Breakfast and Meals\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/3418",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "3418"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Token Generator",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\":\"admin\",\n    \"password\":\"password123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/auth",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "auth"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Booking",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "token=c652925d3a42065"
+              }
+            ],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/634",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "634"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Negative Scenario",
+      "item": []
+    }
+  ]
+}

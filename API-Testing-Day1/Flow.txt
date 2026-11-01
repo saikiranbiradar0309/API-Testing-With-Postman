@@ -1,0 +1,129 @@
+01. How to create workspace in Postman?
+
+    - Workspace --> Create new Workspace --> Workspace Name --> Select workspace type
+      --> Public --> Blank Workspace --> Create Workspace
+
+==========================================================
+
+02. How to create collection in Postman?
+
+    - Inside Collections --> Click on Create --> Give a name to Collection
+      --> Booking API 
+
+    - Inside Booking API --> Create 2 folders --> Positive Endpoints --> Negative Scenarios
+
+
+==========================================================
+
+03. URL we are using for this demo is
+
+     https://restful-booker.herokuapp.com/apidoc/index.html
+
+
+==========================================================
+
+
+04. Creating first GET Request for Booking API
+
+    - Select Positive Endpoints Folder --> Add Request --> Select GET
+      --> Add URL https://restful-booker.herokuapp.com/booking
+      --> Before sending the Request save it as GET Booking Ids 
+      --> Select the Collection --> Inside the Selected Collection, Select Positive
+          Endpoints --> Save
+      --> Now click on Send
+    
+
+    - See the Status Code, In our case its 200 OK, That means we successfully Sent
+      The request and then got the Response.
+
+    - You can also the Response Time taken by the server
+
+    - You can also the Response Size 
+
+
+==========================================================
+
+
+05. Creating the Get Request As Per ID for Booking API
+
+    - Select Positive Endpoints Folder --> Add Request --> Select GET
+      --> Add URL https://restful-booker.herokuapp.com/booking/1
+      --> Before sending the Request save it as GET Booking Details as Per Id
+      --> Select the Collection --> Inside the Selected Collection, Select Positive
+          Endpoints --> Save
+      --> Now click on Send
+
+    - It will return firstname, lastname, totalprice, depositpaid, bookingdates
+      checkin and checkout, additionalneeds
+
+==========================================================
+
+
+06. Creating the POST Request   
+
+    - Select Positive Endpoints Folder --> Add Request --> Select POST
+      --> Add URL https://restful-booker.herokuapp.com/booking
+      --> Save it as Create Booking
+      --> Click on Headers --> In Key type Content-Type and Value as application/json
+      --> Click on Body --> Raw --> JSON 
+      --> Goto the Get Request As Per ID for Booking API and Copy the Response
+      --> Paste it inside Post Body --> Change some things as firstname and lastname
+      --> Click on Send
+      --> It will return a booking id with response body
+    
+
+    - Lets check wether The POST Request has been created successfully or not
+      --> Capture the booking id
+      --> Create a GET Request By id --> Enter URL: https://restful-booker.herokuapp.com/booking/634
+      --> In my case the booking id was 634
+      --> Click on Send
+
+==========================================================
+
+
+07. Generate The Token By using POST Request
+
+    - Select Positive Endpoints Folder --> Add Request --> Select POST
+      --> Add URL https://restful-booker.herokuapp.com/auth
+      --> Save it as Token Generator
+      --> Specify The Header as Key Content-Type and Value application/json
+      --> Click on Body --> Raw --> JSON 
+      -->       {
+                    "username":"admin",
+                    "password":"password123"
+                }
+      
+      --> Click on Send
+      --> It returns the token id
+      --> By using the token id we can update the data in the server.
+
+
+==========================================================
+
+
+08. Update The Details Using PUT
+     - Select Positive Endpoints Folder --> Add Request --> Select PUT
+       --> Get the booking id which you want to update, Here I'm taking 634
+       --> Add URL https://restful-booker.herokuapp.com/booking/634
+       --> In Headers Add Key as Content-Type and Value as application/json
+       --> Also Add Another Header Add Key as Cookie and Value as token=tokennumber
+           Ex: token=12345
+       --> Copy the Request Body from GET By id, Like here I want to Update 634 right
+           So take that Request Body
+       --> Update like firstname and lastname
+       --> Save it as Update Booking
+       --> Click on Send
+
+
+==========================================================
+
+
+09. Delete the Booking Details Using DELETE
+    - Select Positive Endpoints Folder --> Add Request --> Select DELETE
+       --> Get the booking id which you want to DELETE, Here I'm taking 634
+       --> Add URL https://restful-booker.herokuapp.com/booking/634
+       --> Save it as Delete Booking
+       --> In Headers Add Key as Content-Type and Value as application/json
+       --> Also Add Another Header Add Key as Cookie and Value as token=tokennumber
+           Ex: token=12345
+       --> Click on Send
