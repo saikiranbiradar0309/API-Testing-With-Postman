@@ -1,0 +1,123 @@
+Advanced Assertions
+
+
+01. Verify The First Name In GET
+
+    var jsonData = pm.response.json();
+    pm.test("Verify First Name", function () {
+        
+        pm.expect(jsonData.firstname).to.eql("Abhi");
+    });
+
+
+===========================================================
+
+
+02. Verify Total Price Greater Than 800
+
+    pm.test("Verify Total Price Greater Than 800", function(){
+        pm.expect(jsonData.totalprice).is.greaterThan(800);
+    });
+
+    NOTE: As we specified variable jsonData Globally so no need to define
+          it every time.
+
+
+
+===========================================================
+
+
+03. Verify CheckIn Date as it is in Nested Format.  *****
+
+        pm.test("Verify Checkin Date", function(){
+            pm.expect(jsonData.bookingdates.checkin).to.eql("2016-04-22");
+        })
+
+
+===========================================================
+
+
+04. How to Export the API into the CURL command         *****
+
+    - Goto your postman --> Select the API --> Click on Code
+      --> It will give the full code with curl command
+
+        curl --location 'https://restful-booker.herokuapp.com/booking' \
+        --header 'Content-Type: application/json' \
+        --data '{
+            "firstname": "Abhi",
+            "lastname": "Biradar",
+            "totalprice": 874,
+            "depositpaid": true,
+            "bookingdates": {
+                "checkin": "2016-04-22",
+                "checkout": "2024-04-08"
+            },
+            "additionalneeds": "Breakfast and Meals"
+        }'
+
+
+===========================================================
+
+
+05. How to Import Curl Command
+
+    - Click on import button --> Select Raw Text --> Paste --> Continue
+      --> Import --> Save As --> Curl Command
+
+      You can name anything
+
+
+===========================================================
+
+
+06. To execute Curl command for one by one will be much time consuming 
+    So we will execute Whole Collection at once
+
+    - CLick on Booking API --> Click On Run --> Select All The Methods
+      --> Click on Start Run
+    
+    - Make sure you keep them sequentially else the methods will fail
+
+
+===========================================================
+
+
+07. How to Execute a particular folder
+
+    - Select 3 dots on the folder which you want to execute
+      --> Click on Run --> Start Run
+
+
+===========================================================
+
+
+08. How to Execute selected Methods from a Folder
+
+    - Select 3 dots on the folder which you want to execute
+      --> Select the methods
+      --> Click on Run --> Start Run
+
+===========================================================
+
+
+09. How to export the collections into the JSON file
+
+    - Select your Collection --> Click on 3 dots --> More
+      --> Export Collection --> Other --> Again Click on Export Collection 
+      --> Select Folder where you want to save --> Save
+
+
+===========================================================
+
+
+10. How to export Environment Variables into the JSON file
+
+    - Select Environment variables --> Click on 3 Dots --> Export
+      --> Select Folder --> Save
+
+
+===========================================================
+
+
+11. 
