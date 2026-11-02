@@ -1,0 +1,65 @@
+01. Headers
+    - Headers are primarily used to send metadata and instructions about the request.
+
+      Key                   Value                   Purpose
+      Content-Type          application/json        Indicates that the request body contains JSON.
+      Accept                application/json        Indicates that you prefer a JSON response.
+      Authorization         Bearer {{token}}        Sends an authentication token.
+    
+
+==========================================================================
+
+
+02. Request Body: Data you send to the server
+
+    - The request body contains the data you want to send to the server, when the API 
+      requires a body.
+    
+    - For example, suppose you want to register a user.
+      Method: POST
+      URL: {{baseUrl}}/api/users/register
+
+      Body → raw → JSON:
+        {
+            "name": "Saikiran",
+            "email": "saikiran@example.com",
+            "password": "Test@123"
+        }
+    
+    - Here, you send the user's registration details to the server.
+
+    - The server processes the data and may create a new user in the database.
+
+
+
+==========================================================================
+
+
+03. Response Body: Data returned by the server
+
+    - The response body contains the data returned by the server, if a response body 
+      is provided.
+    
+    - For example, you send a login request.
+
+    - Request Body:
+
+        {
+            "email": "saikiran@example.com",
+            "password": "Test@123"
+        }
+    
+    - The server validates the credentials and might return:
+
+    - Response Body:
+
+        {
+            "message": "Login successful",
+            "userId": 101,
+            "token": "abc123xyz"
+        }
+    
+    - Now you have received three pieces of information:
+      a. message: The login result.
+      b. userId: The user's ID.
+      c. token: An example authentication token.

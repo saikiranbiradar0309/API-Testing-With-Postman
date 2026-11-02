@@ -1,0 +1,267 @@
+Negative Scenarios
+
+01. Record Not Found
+    - When we are requesting a record which is not found in Response then we get
+      Record Not Found
+    - We get 404 Status Code
+
+    - Select Negative Scenarios Folder --> Name --> GET Booking Details Invalid ID
+      --> Add Request --> GET
+      --> Add URL https://restful-booker.herokuapp.com/booking/48746
+      --> In the Id in my case I took 48746 Take any ID, because here we are checking
+          Negative Scenarios
+      --> Click on Send
+
+    - If you look at the status code its 404 Not Found
+
+==================================================================
+
+02. Request has Invalid Characters
+
+    - Select Negative Scenarios Folder --> Name --> Create Booking With Invalid Characters
+      --> Add Request --> POST
+      --> Add URL https://restful-booker.herokuapp.com/booking
+      --> Get the Request Body from GET Method
+      --> In the total price add some special characters, because here we are checking
+          Negative Scenarios
+      --> Click on Send
+    
+
+    - If you look at the Status Code its 400 Bad Request
+
+
+==================================================================
+
+
+03. Values has to many characters
+    - Select Negative Scenarios Folder --> Name --> Create Booking With Invalid Characters
+      --> Add Request --> POST
+      --> Add URL https://restful-booker.herokuapp.com/booking
+
+==================================================================
+
+
+
+04. Request sent with missing information
+
+
+
+==================================================================
+
+
+05. Value is not in correct format
+
+
+==================================================================
+
+
+06. How to Declare and Use Environment Variables?
+
+    - On the Top Right Corner or On the bottom of our collections Click on 
+      Select Environments --> Click on Create New Environment 
+      --> Give the Environment Name --> Booking API
+      --> Click on Add Variable as fname and Value as Abhi 
+      --> Save
+    
+    - Now lets test it
+      --> Goto Positive Endpoints --> Select Create Booking
+      --> in the firstname value add --> {{variableName}}
+      --> In our case {{fname}}
+      --> make sure after creating environment variable you're selecting that env variable
+      --> Click on Send
+
+
+==================================================================
+
+
+07. How to Save API Response in Variable
+
+    - When we are creating a booking, it is generating a booking id
+    - We are using same id to get more details about that booking
+    - As well as if we want to update anything we need to update by the same booking id
+    - Also in our case we are using that booking id in DELETE request also
+
+
+    - Goto Create Booking --> Scripts --> 
+      Write the below JavaScript code
+      
+
+      // The first line reads the booking ID from the response,
+
+      var jsonData = pm.response.json();
+
+      // and the second line stores it so you can use it in another API request without hardcoding the ID.
+      pm.environment.set("b_id", jsonData.bookingid);
+
+      --> Send
+
+      --> Goto the Environment variables --> Inside Booking API -->
+          You can see Variable as b_id and value as 1505
+
+
+
+==================================================================
+
+
+08. Read the particular value in the GET
+    
+    - In our previous steps we are hardcoding booking id in our url
+    - So lets change that
+
+    - Goto GET Booking Details as Per Id --> Remove the id in the URL
+      --> {{b_id}} --> Add this
+      --> Click on Send
+
+
+==================================================================
+
+
+09. Similarly Do for Update Booking
+     - Goto Update Booking --> Remove the id in the URL
+       --> {{b_id}} --> Add this
+       --> Click on Send
+
+
+==================================================================
+
+
+10. Similarly Do for Delete Booking
+    - Goto Delete Booking --> Remove the id in the URL
+       --> {{b_id}} --> Add this
+       --> Click on Send
+
+
+==================================================================
+
+
+11. We need to store token as Environment Variable as Well 
+    
+    - Because to Update and Delete we need token
+
+    - Token Generator --> Scripts
+      
+      var jsonData = pm.response.json();
+      pm.environment.set("b_token", jsonData.token);
+    
+
+    - Now, if you got and check environment variables there is another 
+      environment variable created as b_token and tokenvalue
+
+
+    - In the Update and Delete Booking we are using this env variable in the
+      Headers
+
+      --> Update Booking --> Headers --> token={{b_token}}
+
+
+      Do the Same for Delete Booking
+
+
+==================================================================
+
+
+12. How to verify status code using JavaScript in Postman
+    
+    - Goto Positive Endpoints --> Create Booking
+      --> write below code
+
+        pm.test("Verify Status Code is 200", function() {
+            pm.response.to.have.status(200);
+        })
+
+
+        Full code with Variables
+
+            var jsonData = pm.response.json();
+
+            pm.environment.set("b_id", jsonData.bookingid);
+
+
+            pm.test("Verify Status Code is 200", function (){
+                pm.response.to.have.status(200);
+            });
+    
+
+    - Once you click on send --> Goto Test Results 
+      --> You can see it as Passed 
+    
+
+    - If you change a status code here in the code For example:
+
+        pm.test("Verify Status Code is 200", function() {
+                    pm.response.to.have.status(201);
+                })
+    
+
+     - Once you click on send --> Goto Test Results 
+       --> You can see it as Failed
+
+
+==================================================================
+
+
+13. Update for all
+
+    - Update the code for all
+
+    - For delete make sure its 201
+
+
+==================================================================
+
+
+14. For GET Booking Details Invalid Id
+
+        pm.test("Status code is 404", function () {
+            pm.response.to.have.status(404);
+        });
+
+
+==================================================================
+
+
+15. How to Assert API Response Body
+
+    - Verify FirstName contains Josh
+
+        pm.test("Verify Body matches string", function () {
+            pm.expect(pm.response.text()).to.include("Josh");
+        });
+
+
+==================================================================
+
+
+16. Verify the Content Type is application/json for Response Headers
+
+        var jsonData = pm.response.json();
+
+        pm.environment.set("b_id", jsonData.bookingid);
+
+
+        pm.test("Verify Status Code is 200", function (){
+            pm.response.to.have.status(200);
+        });
+
+        pm.test("Verify Body matches string", function () {
+            pm.expect(pm.response.text()).to.include("Abhi");
+        });
+
+
+        pm.test("Content-Type is present", function () {
+            pm.response.to.have.header("Content-Type", "application/json; charset=utf-8");
+        });
+
+
+==================================================================
+
+
+17. Verify the Response Time 
+
+
+        pm.test("Response time is less than 200ms", function () {
+            pm.expect(pm.response.responseTime).to.be.below(2000);
+        });
+
+
+==================================================================
