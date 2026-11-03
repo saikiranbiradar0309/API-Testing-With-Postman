@@ -1,0 +1,224 @@
+01. Install NewMan in Mac
+
+    - npm install -g newman
+
+    - Verify using
+      newman --version
+
+
+====================================================
+
+
+02. In the Day3 We have Exported Environment variables as well as Collection
+    By using those 2 files we can execute API request
+
+
+    --> Goto the Day3 In Terminal
+
+    --> To execute in terminal
+
+        a. Syntax
+            newman run <collection_name> -e <env_name>
+
+            newman run Booking API.postman_collection.json -e Booking API.postman_environment.json
+
+
+The output will be something like below
+
+
+(node:97606) [DEP0176] DeprecationWarning: fs.F_OK is deprecated, use fs.constants.F_OK instead
+(Use `node --trace-deprecation ...` to show where the warning was created)
+error: could not load environment
+  ENOENT: no such file or directory, open 'Booking'
+
+(base) saikiranbiradar@Saikirans-MacBook-Air API-Testing-Day3 % newman run Booking\ API.postman_collection.json -e Booking\ API.postman_environment.json
+(node:97774) [DEP0176] DeprecationWarning: fs.F_OK is deprecated, use fs.constants.F_OK instead
+(Use `node --trace-deprecation ...` to show where the warning was created)
+newman
+
+Booking API
+
+❏ Positive Endpoints
+↳ GET Booking Ids
+  GET https://restful-booker.herokuapp.com/booking [200 OK, 5.1kB, 1861ms]
+  ✓  Verify Status Code is 200
+
+↳ Create Booking
+  POST https://restful-booker.herokuapp.com/booking [200 OK, 953B, 263ms]
+  ✓  Verify Status Code is 200
+  ✓  Verify Body matches string
+  ✓  Content-Type is present
+  ✓  Response time is less than 2000ms
+
+↳ GET Booking Details As Per Id
+  GET https://restful-booker.herokuapp.com/booking/351 [200 OK, 925B, 328ms]
+  ✓  Verify Status Code 200
+  ✓  Verify Body matches string
+  ✓  Verify First Name
+  ✓  Verify Total Price Greater Than 800
+  ✓  Verify Checkin Date
+
+↳ Token Generator
+  POST https://restful-booker.herokuapp.com/auth [200 OK, 770B, 268ms]
+  ✓  Verify Status Code is 200
+
+↳ Update Booking
+  PUT https://restful-booker.herokuapp.com/booking/351 [200 OK, 927B, 420ms]
+  ✓  Status Code is 200
+
+↳ Curl Command
+  POST https://restful-booker.herokuapp.com/booking [200 OK, 953B, 391ms]
+
+↳ Delete Booking
+  DELETE https://restful-booker.herokuapp.com/booking/351 [201 Created, 747B, 299ms]
+  ✓  Status code is 201
+
+❏ Negative Scenario
+↳ GET Booking Details Invalid ID
+  GET https://restful-booker.herokuapp.com/booking/48746 [404 Not Found, 751B, 288ms]
+  ✓  Status code is 404
+
+↳ Create Booking With Invalid Characters
+  POST https://restful-booker.herokuapp.com/booking [400 Bad Request, 768B, 299ms]
+  ✓  Status code is 400
+
+┌─────────────────────────┬─────────────────────┬─────────────────────┐
+│                         │            executed │              failed │
+├─────────────────────────┼─────────────────────┼─────────────────────┤
+│              iterations │                   1 │                   0 │
+├─────────────────────────┼─────────────────────┼─────────────────────┤
+│                requests │                   9 │                   0 │
+├─────────────────────────┼─────────────────────┼─────────────────────┤
+│            test-scripts │                   8 │                   0 │
+├─────────────────────────┼─────────────────────┼─────────────────────┤
+│      prerequest-scripts │                   0 │                   0 │
+├─────────────────────────┼─────────────────────┼─────────────────────┤
+│              assertions │                  15 │                   0 │
+├─────────────────────────┴─────────────────────┴─────────────────────┤
+│ total run duration: 4.5s                                            │
+├─────────────────────────────────────────────────────────────────────┤
+│ total data received: 5.19kB (approx)                                │
+├─────────────────────────────────────────────────────────────────────┤
+│ average response time: 490ms [min: 263ms, max: 1861ms, s.d.: 487ms] │
+└─────────────────────────────────────────────────────────────────────┘
+
+
+====================================================
+
+
+03. How to execute Standard HTML Report after Executing the Postman Collections
+    from the Terminal
+
+    a. Install npm newman reporter html package
+       npm i -g newman-reporter-html 
+
+    
+    b. Generate the HTML Report
+       newman run "Booking API.postman_collection.json" -e "Booking API.postman_environment.json" -r html
+
+    c. After executing above command a folder will be created on the name like newman 
+       and in that you can have the HTML Report.
+
+
+====================================================
+
+
+04. How to Generate Advanced HTML Report
+
+    a. Install npm newman reporter html extra package
+       npm i -g newman-reporter-htmlextra
+
+    b. Generate the HTML Report
+       newman run "Booking API.postman_collection.json" -e "Booking API.postman_environment.json" -r cli,htmlextra
+
+    c.  c. After executing above command a folder will be created on the name like newman 
+       and in that you can have the HTML Report.
+
+
+
+====================================================
+
+
+05. PATCH Request
+
+    - Positive Endpoints --> Add Request --> Name --> Partial Update Booking
+      --> Request as Patch
+      --> URL: https://restful-booker.herokuapp.com/booking/{{b_id}}
+      --> raw --> JSON
+
+            {
+                "firstname": "Abhishek",
+                "lastname": "Biradar"
+            }
+      
+      --> Send
+
+
+    - First execute Create Booking --> Token Generator --> Partial Update Booking
+
+====================================================
+
+
+06. verify API response JSON Schema 
+
+    - Goto Get Booking Details --> Copy the Response
+      --> Search Convert JSON to JSON Schema --> Visit any website
+      --> Paste the Response --> Generate
+      --> Copy the Generated Schema
+      --> Goto Get Booking Details
+      --> Scripts
+      --> Write below code
+
+            const expectedJSONSchema = 
+            {
+            "type": "object",
+            "properties": {
+                "firstname": {
+                "type": "string"
+                },
+                "lastname": {
+                "type": "string"
+                },
+                "totalprice": {
+                "type": "integer"
+                },
+                "depositpaid": {
+                "type": "boolean"
+                },
+                "bookingdates": {
+                "type": "object",
+                "properties": {
+                    "checkin": {
+                    "type": "string"
+                    },
+                    "checkout": {
+                    "type": "string"
+                    }
+                },
+                "required": [
+                    "checkin",
+                    "checkout"
+                ]
+                },
+                "additionalneeds": {
+                "type": "string"
+                }
+            },
+            "required": [
+                "firstname",
+                "lastname",
+                "totalprice",
+                "depositpaid",
+                "bookingdates",
+                "additionalneeds"
+            ]
+            };
+    
+      --> No rocket science here, Just pasted the copied schema from schema generator 
+          and assigned to a variable called const expectedSchema
+      
+      --> Verify using
+
+            pm.test("Verify JSON Schema", function (){
+                pm.response.to.have.jsonSchema(expectedJSONSchema);
+            })
